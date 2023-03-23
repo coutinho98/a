@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style1.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"
+      integrity="sha512-cOH8ndwGgPo+K7pTvMrqYbmI8u8k6Sho3js0gOqVWTmQMlLIi6TbqGWRTpf1ga8ci9H3iPsvDLr4X7xwhC/+DQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"
+      integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <link rel="shoortcut icon" href="sorvete.png"
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Krona+One&display=swap" rel="stylesheet">
+    <title>sorry :(</title>
+  </head>
+  <body>
+    <div class="container">
+        <div class="menu-btn"><a href="../music/music.html">click me again 🍓</div></a>
+        <h1 class="header">
+            <br />about <br/> everything.</a>
+        </h1>
+
+        <div class="titles">
+             <div class="title title-1"><h1>im</div></h1>
+             <div class="title title-2"><h1>so</div></h1>
+             <div class="title title-3"><h1>sorry</div></h1>
+        </div>
+        <ul class="blocks">
+            <li class="block block-1"></li>
+            <li class="block block-2"></li>
+            <li class="block block-3"></li>
+            <li class="block block-4"></li>
+            <li class="block block-5"></li>
+            <li class="block block-6"></li>
+        </ul>
+    </div>
+    <script>
+        TweenMax.staggerFrom(
+            ".titles > div",
+            0.8,
+            {
+                x: "-60",
+                ease: Power3.easeInOut,
+                opacity: "0",
+            },
+            2
+        );
+
+        TweenMax.staggerTo(
+            ".titles > div",
+            0.8,
+            {
+                x: "60",
+                ease: Power3.easeInOut,
+                delay: 1.2,
+                opacity: "0",
+            },
+            2
+        );
+        TweenMax.staggerFrom(
+            "li",
+            3,
+            {
+                x: "-1600",
+                delay: 4.2,
+                ease: Expo.easeInOut,
+            },
+            0.16
+        );
+
+        TweenMax.staggerTo(
+            "li",
+            2.6,
+            {
+                x: "1600",
+                delay: 6.8,
+                ease: Expo.easeInOut,
+            },
+            0.2
+        );
+
+        var textWrapper = document.querySelector(".header");
+        textWrapper.innerHTML = textWrapper.textContent.replace(
+            /\S/g,
+            "<span class='letter'>$&</span>"
+        );
+
+        anime.timeline().add({
+            targets: ".header .letter",
+            opacity: [0, 1],
+            translateY: [40, 0],
+            translateZ: 0,
+            easing: "easeInExpo",
+            duration: 4000,
+            delay: (el, i) => 8400 + 40 * i,
+        });
+    </script>
+</body>
+</html>

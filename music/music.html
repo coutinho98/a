@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"
+      integrity="sha512-cOH8ndwGgPo+K7pTvMrqYbmI8u8k6Sho3js0gOqVWTmQMlLIi6TbqGWRTpf1ga8ci9H3iPsvDLr4X7xwhC/+DQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <title>music</title>
+  </head>
+  <body>
+    <div class="container">
+      <canvas></canvas>
+    </div>
+    <audio src="./song.mp3" id="audio"></audio>
+    <script>
+      const c = document.querySelector("canvas");
+      const audio = document.querySelector("#audio");
+
+      let opt = {
+        width: c.offsetWidth,
+        height: c.offsetHeight,
+        midY: c.offsetHeight / 5,
+        points: 100,
+        stretch: 10,
+        sinHeight: 0,
+        speed: -0.1,
+        strokeColor: "white",
+        strokeWidth: 1.5,
+        power: false,
+      };
+
+      c.width = opt.width * 2;
+      c.height = opt.height * 2;
+      c.style.width = opt.width;
+      c.style.height = opt.height;
+
+      const ctx = c.getContext("2d");
+      ctx.scale(2, 2);
+
+      ctx.strokeStyle = opt.strokeColor;
+      ctx.lineWidth = opt.strokeWidth;
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+
+      let time = 0;
+
+      const render = () => {
+        window.requestAnimationFrame(render);
+        ctx.clearRect(0, 0, opt.width, opt.height);
+        time += 1;
+        ctx.beginPath();
+        let increment = 0;
+
+        for (i = 0; i <= opt.points; i++) {
+          if (i < opt.points / 2) {
+            increment += 0.1;
+          } else {
+            increment += -0.1;
+          }
+
+          const x = (opt.width / opt.points) * i;
+          const y =
+            opt.midY +
+            Math.sin(time * opt.speed + i / opt.stretch) *
+              opt.sinHeight *
+              increment;
+          ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+      };
+
+      render();
+
+      c.addEventListener("click", () => {
+        opt.power = !opt.power;
+
+        if (opt.power) {
+          audio.play();
+          TweenMax.to(opt, 1, {
+            sinHeight: 4,
+            stretch: 5,
+            ease: Power2.easeOut,
+          });
+        } else {
+          audio.pause();
+          TweenMax.to(opt, 1, {
+            sinHeight: 0,
+            stretch: 10,
+            ease: Power2.ease,
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
